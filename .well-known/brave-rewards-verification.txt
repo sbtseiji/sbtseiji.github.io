@@ -1,0 +1,4 @@
+This is a Brave Rewards publisher verification file.
+
+Domain: sbtseiji.github.io
+Token: f4ada001b766e0c9823f87a49655fefe86e7d104a37cf72676788970d6a31887

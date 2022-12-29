@@ -30,7 +30,7 @@ twitter_username: ooSHIBATAoo
 github_username:  sbtseiji
 
 # Build settings
-theme: pages-themes/modernist@v0.2.0
+theme: modernist
 plugins:
 - jekyll-feed
 

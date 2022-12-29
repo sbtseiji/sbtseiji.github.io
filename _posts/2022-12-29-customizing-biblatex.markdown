@@ -69,7 +69,7 @@ In most cases, changes will be made at one of these levels, 2 through 5. For exa
 BibLaTeX sets a BibliographyDriver for each entry type, such as `article` or `book`. This specifies which field data is processed for each entry and in what order. For example, if you want a book-type bibliography to be ordered by `author`, `title`, and `year` of publication, you would redefine the BibliographyDriver for `book`.
 
 
-The process, in this case, can be described in its simplest form as follows^[Here, I removed `%` after `{` because Jekyll cannot handle it, but you should put it after each `{` to avoind unwanted space.]:
+The process, in this case, can be described in its simplest form as follows[^1]:
 
 ```
 \DeclareBibliographyDriver{book}{
@@ -80,6 +80,8 @@ The process, in this case, can be described in its simplest form as follows^[Her
   \usebibmacro{finentry}%
 }
 ```
+
+[^1]: Here, I removed `%` after `{` because Jekyll cannot handle it, but you should put it after each `{` to avoind unwanted space.
 
 The processing of each entry type begins with `begentry` and ends with `finentry`, so the processing of each field is written between these two. The `\printnames` is a command to output the contents of a list of name types, such as author and editor names. How the field contents are displayed is defined by the `Format` of each field.
 

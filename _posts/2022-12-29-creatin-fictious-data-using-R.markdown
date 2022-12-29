@@ -5,7 +5,7 @@ date:   2022-12-29 20:58:00 +0900
 categories: blog
 ---
 
-Originally posted on 06/11/2021 to https://qiita.com/sbtseiji/items/df91cb4667af3ab133d2
+Originally posted on 06/11/2021 to [qiita.com](https://qiita.com/sbtseiji/items/df91cb4667af3ab133d2)
 
 I used to spend a lot of time creating fictitious data for my statistics classes, but now I have learned that it is quite easy to do so using the `psych` package in R. 
 

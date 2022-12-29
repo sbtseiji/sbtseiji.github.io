@@ -65,4 +65,5 @@ res_data <- res_data + runif( n = 7, min = 2.5, max = 3.5)
 
 # Cut at appropriate point to 7 levels and add minimum rating value
 res_data <- con2cat(res_data,cuts=c( 0.5, 1.5, 2.5, 3.5, 4.5, 5.5)) + 1
+
 {% endhighlight %}

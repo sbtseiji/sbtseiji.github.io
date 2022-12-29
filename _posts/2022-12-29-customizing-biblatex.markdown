@@ -118,8 +118,6 @@ For lists of name such as `author`, formats such as `\DeclarNameFormat{family-gi
 
 The name type and list type fields can contain multiple values. If these fields have multiple values, the processing is performed repeatedly for that number of values according to this format definition. At this time, information on how many items are currently being processed is stored in the `listcount` counter, and information on how many names are contained in the name field is stored in the `listtotal` counter. The process can be branched according to the author's order using these counter values.
 
-たとえば，日本心理学会やAPAの文献リストフォーマットでは，共著者が20人以下であれば全員表示，20人を超える場合は19人目まで表示して，途中は「…」で省略し，最後の著者名を表示するという，かなり複雑な処理が求められています。この処理は，\DeclarNameFormat{family-given}を次のように定義することで対処可能です。
-
 For example, the bibliography format of the Japanese Psychological Association and APA requires rather complicated processing: if there are 20 or fewer co-authors, all authors are displayed; if there are more than 20, up to the 19th author is displayed, the middle is omitted with "...", and the last author's name is displayed. This process can be handled by defining `\DeclarNameFormat{family-given}` as follows:
 
 {% highlight latex %}

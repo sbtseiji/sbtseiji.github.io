@@ -2,7 +2,8 @@
 layout: post
 title:  "Creating Fictitious Data for Factor Analysis Using the psych Package in R"
 date:   2022-12-29 20:58:00 +0900
-categories: blog
+tags:
+- R
 ---
 
 Originally posted on 06/11/2021 to [qiita.com](https://qiita.com/sbtseiji/items/df91cb4667af3ab133d2)

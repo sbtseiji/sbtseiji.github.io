@@ -21,7 +21,7 @@
 title: SHIBATA's GitHub Pages
 # email: your-email@example.com
 description: >- # this means to ignore newlines until "baseurl:"
- The English version of the article about my script uploaded to [qiita.com](https://qiita.com/sbtseiji) will be posted here.
+ The English version of the article about my script uploaded to https://qiita.com/sbtseiji will be posted here.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: ooSHIBATAoo

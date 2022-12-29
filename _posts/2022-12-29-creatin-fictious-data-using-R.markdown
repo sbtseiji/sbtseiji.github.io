@@ -38,17 +38,31 @@ factor_cor <- matrix( # Specify the correlation matrix between factors
 cor_mat <- sim.structure( fload_mat , factor_cor )$model 
 
 N <- 100
-var_means <- rep(0, 7) # Here the average value of the seven variables is set to all 0
+
+# Here the average value of the seven variables is set to all 0
+var_means <- rep(0, 7)
 
 rand_data <- mvrnorm( N , var_means , cor_mat )
 
 #### Converting data to continuous variables (here converting to integer values with a mean score of around 50 with a standard deviation of 4 to 6)
-int_data <- rand_data * runif( n = 7, min = 4, max = 7) # Scaling standard deviation from 4x to 6x
-int_data <- int_data + runif( n = 7, min = 45, max = 55) # Changing the average to a range of 45 to 55
-int_data <- round(int_data) # make them integer
+
+# Scaling standard deviation from 4x to 6x
+int_data <- rand_data * runif( n = 7, min = 4, max = 7)
+
+# Changing the average to a range of 45 to 55
+int_data <- int_data + runif( n = 7, min = 45, max = 55)
+
+# make them integer
+int_data <- round(int_data)
 
 #### When creating fictious data as responses on a 7-point scale (from 1 to 7)
-res_data <- rand_data * runif( n = 7, min = 1.5, max = 2.0) # Scaling standard deviation from 1.5x to 2x
-res_data <- res_data + runif( n = 7, min = 2.5, max = 3.5) # Changing the average to between 2.5 to 3.5
-res_data <- con2cat(res_data,cuts=c( 0.5, 1.5, 2.5, 3.5, 4.5, 5.5)) + 1　# Cut at appropriate point to 7 levels and add minimum rating value
+
+# Scaling standard deviation from 1.5x to 2x
+res_data <- rand_data * runif( n = 7, min = 1.5, max = 2.0)
+
+# Changing the average to between 2.5 to 3.5
+res_data <- res_data + runif( n = 7, min = 2.5, max = 3.5)
+
+# Cut at appropriate point to 7 levels and add minimum rating value
+res_data <- con2cat(res_data,cuts=c( 0.5, 1.5, 2.5, 3.5, 4.5, 5.5)) + 1
 {% endhighlight %}

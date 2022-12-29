@@ -69,10 +69,10 @@ In most cases, changes will be made at one of these levels, 2 through 5. For exa
 BibLaTeX sets a BibliographyDriver for each entry type, such as `article` or `book`. This specifies which field data is processed for each entry and in what order. For example, if you want a book-type bibliography to be ordered by `author`, `title`, and `year` of publication, you would redefine the BibliographyDriver for `book`.
 
 
-The process, in this case, can be described in its simplest form as follows:
+The process, in this case, can be described in its simplest form as follows^[Here, I removed `%` after `{` because Jekyll cannot handle it, but you should put it after each `{` to avoind unwanted space.]:
 
 ```
-\DeclareBibliographyDriver{book}{%
+\DeclareBibliographyDriver{book}{
   \usebibmacro{begentry}%
     \printnames{author}%
     \printfield{title}%
@@ -91,7 +91,7 @@ The command to print the contents of a field depends on the field type (`name`, 
 Sometimes, you may want to process field data or treat multiple fields as a set before outputting the field contents with the `\print` command. In such cases, you can use `bibmacro`. For example, if you want to use the output "author (year of publication)." for multiple entry types, it is better to define them all together as a macro such as `author+year` than to write the same processing for each driver. The definition of a macro `author+year` which displays the field information in "author (year of publication)." format is something like this:
 
 ```
-\newbibmacro{author+year}{%
+\newbibmacro{author+year}{
   \printnames{author}% print author(s)
   \printtext[parens]{\printdate}% print date in parentheses
 }
@@ -121,19 +121,19 @@ The name type and list type fields can contain multiple values. If these fields 
 For example, the bibliography format of the Japanese Psychological Association and APA requires rather complicated processing: if there are 20 or fewer co-authors, all authors are displayed; if there are more than 20, up to the 19th author is displayed, the middle is omitted with "...", and the last author's name is displayed. This process can be handled by defining `\DeclarNameFormat{family-given}` as follows:
 
 ```
-\ifthenelse{\value{listcount}=20\AND\value{listcount}<\value{listtotal}}{%
+\ifthenelse{\value{listcount}=20\AND\value{listcount}<\value{listtotal}}{
   % If the author currently being processed is the 20th author and there are still more authors after this one
   　　 \ldots% print '…'
-  }{%
-    \ifthenelse{\value{listcount}>20\AND\value{listcount}<\value{listtotal}}{%
+  }{
+    \ifthenelse{\value{listcount}>20\AND\value{listcount}<\value{listtotal}}{
       % If the author currently being processed is later than the 20th author and is not the last author
       % print nothing
-    }{%
+    }{
       \namepartfamily\space\namepartgiven% print "family-name given-name"
-      \ifthenelse{\value{listcount}=\value{listtotal}}{%
+      \ifthenelse{\value{listcount}=\value{listtotal}}{
         % If the author currently being processed is the last author
         % print nothing
-      }{%
+      }{
         \printtext{, }% print ", "
       }%
     }%
@@ -155,11 +155,11 @@ If you only want to use " " instead of "," as the delimiter between the author's
 However, simply modifying `\revsdnamepunct` will cause all references to display a space between the author's last name and first name, regardless of language. If you want to change the delimiters according to language, such as "Familyname, Givenname" for English references and "Familyname Givenname" for Japanese references, set the `AtEveryBibitem`, which is executed every time a bibliography entry is read, as follows:
 
 ```
-\AtEveryBibitem{%
-  \ifthenelse{\equal{\thefirstlistitem{language}}{japanese}}{%
+\AtEveryBibitem{
+  \ifthenelse{\equal{\thefirstlistitem{language}}{japanese}}{
     % If the language of the reference is Japanese, the delimiter is a space
     \renewcommand*{\revsdnamepunct}{\space}%
-  }{%
+  }{
     % If the language of the reference is not Japanese, the delimiter is a comma and a space
     \renewcommand*{\revsdnamepunct}{\addcomma\space}%
   }%
@@ -181,11 +181,11 @@ The settings for `.cbx` files are the same as for `.bbx` files. In `.cbx` files,
 
 ```
 \renewbibmacro{textcite}{
-  \iffieldequals{namehash}{\cbx@lasthash}{%
+  \iffieldequals{namehash}{\cbx@lasthash}{
     % If the author of this entry is the same as the last entry, do not repeat the author's name
     \setunit{\compcitedelim}%                print delimiter
     \usebibmacro{cite:plabelyear+extradate}% print year
-  }{%
+  }{
     % Otherwise print author's name
     \printnames{labelname}%                  print author label
     \setunit{\printdelim{nameyeardelim}}%    print delimiter

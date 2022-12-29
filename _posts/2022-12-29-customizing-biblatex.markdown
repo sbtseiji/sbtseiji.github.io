@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Creating Fictitious Data for Factor Analysis Using the psych Package in R"
+title:  "Customizing BibLaTeX's style files"
 date:   2022-12-29 20:58:00 +0900
 tags: 
 - biblatex

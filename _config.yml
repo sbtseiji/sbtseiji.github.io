@@ -29,10 +29,10 @@ github_username:  sbtseiji
 
 # Build settings
 # theme: minima
-remote_theme: pages-themes/modernist@v0.2.0
+theme: jekyll-theme-modernist
 plugins:
 - jekyll-feed
-- jekyll-remote-theme
+# - jekyll-remote-theme
 
 include: [".well-known"]
 # Exclude from processing.

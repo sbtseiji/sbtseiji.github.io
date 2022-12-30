@@ -28,8 +28,8 @@ twitter_username: ooSHIBATAoo
 github_username:  sbtseiji
 
 # Build settings
-# theme: minima
-theme: jekyll-theme-modernist
+theme: minima
+# theme: jekyll-theme-modernist
 plugins:
 - jekyll-feed
 # - jekyll-remote-theme

@@ -5,6 +5,7 @@ date:   2022-12-29 20:58:00 +0900
 tags: 
 - biblatex
 - latex
+render_with_liquid: false
 ---
 
 Papers written in Japanese often have different citation formats for Japanese and English references, which has become a bottleneck in using BibTeX and BibLaTeX.
@@ -18,22 +19,22 @@ This information may not be necessary if you use only European languages. Still,
 
 BibLaTeX uses `.bbx`, `.cbx`, and `.dbx`, to specify how to process the bibliography. The `.bbx` file defines the format of the bibliography, and the `.cbx` file is the citation format for the text. The `.dbx` file defines fields used in the bibliography. If you want to change the bibliography format, but leave the in-text citation format as it is in `authoryear`, you need to create a `mystyle.bbx` file, for example. And then, write the following in the preamble:
 
-{% raw %}
+```
 use package[backend=biber,citestyle=authoryear, bibstyle=mystyle]{biblatex}
-{% endraw %}
+```
 
 However, if you always use this combination, you can prepare a mystyle.cbx, which contains the following: 
 
-{% raw %}
+```
 \ProvidesFile{mystyle.cbx}[2022/12/01\space my citation style]
 \RequireCitationStyle{authoryear}
-{% endraw %}
+```
 
 In this way, you can include the existing style file in your `.cbx` file. Then, you can use your original style by simply writing like this.
 
-{% raw %}
+```
 use package[backend=biber,style=mystyle]{biblatex}
-{% endraw %}
+```
 
 The .bbx and .cbx files are necessary, but the .dbx file is optional.
 
@@ -41,10 +42,10 @@ The .bbx and .cbx files are necessary, but the .dbx file is optional.
 
 When creating a .bbx file, you don't need to write all the styles from scratch. As with .cbx files, you can include an existing style file and overwrite only the needed parts.
 
-{% raw %}
+```
 \ProvidesFile{mystyle.bbx}[2022/12/01\space my bibliography style]
 \RequireBibliographyStyle{authoryear}
-{% endraw %}
+```
 
 ### How .bbx file works
 
@@ -71,7 +72,7 @@ BibLaTeX sets a BibliographyDriver for each entry type, such as `article` or `bo
 
 The process, in this case, can be described in its simplest form as follows:
 
-{% raw %}
+```
 \DeclareBibliographyDriver{book}{%
   \usebibmacro{begentry}%
     \printnames{author}%
@@ -79,7 +80,7 @@ The process, in this case, can be described in its simplest form as follows:
     \printdate% 
   \usebibmacro{finentry}%
 }
-{% endraw %}
+```
 
 
 The processing of each entry type begins with `begentry` and ends with `finentry`, so the processing of each field is written between these two. The `\printnames` is a command to output the contents of a list of name types, such as author and editor names. How the field contents are displayed is defined by the `Format` of each field.
@@ -91,12 +92,12 @@ The command to print the contents of a field depends on the field type (`name`, 
 
 Sometimes, you may want to process field data or treat multiple fields as a set before outputting the field contents with the `\print` command. In such cases, you can use `bibmacro`. For example, if you want to use the output "author (year of publication)." for multiple entry types, it is better to define them all together as a macro such as `author+year` than to write the same processing for each driver. The definition of a macro `author+year` which displays the field information in "author (year of publication)." format is something like this:
 
-{% raw %}
+```
 \newbibmacro{author+year}{%
   \printnames{author}% print author(s)
   \printtext[parens]{\printdate}% print date in parentheses
 }
-{% endraw %}
+```
 
 Suppose you are including an existing style file and modifying it. In that case, basic macros such as `author+year` may already be defined in the file you are loading. In such a case, use `\renewbibmacro` instead of `\newbibmacro` for the macro definition. This is the same as the relationship between `newcommand` and `renewcommand`, so I don't think further explanation is necessary.
 
@@ -106,11 +107,11 @@ When an output commands such as `\printnames` is executed, the field's contents 
 
 For example, suppose that the \DeclareNameFormat{author} is set as follows:
 
-{% raw %}
+```
 \namepartfamily%
 \space%
 \namepartgiven%
-{% endraw %}
+```
 
 Then `\printnames{author}` will print the authors' names in the order "last-name first-name".
 
@@ -121,7 +122,7 @@ The name type and list type fields can contain multiple values. If these fields 
 
 For example, the bibliography format of the Japanese Psychological Association and APA requires rather complicated processing: if there are 20 or fewer co-authors, all authors are displayed; if there are more than 20, up to the 19th author is displayed, the middle is omitted with "...", and the last author's name is displayed. This process can be handled by defining `\DeclarNameFormat{family-given}` as follows:
 
-{% raw %}
+```
 \ifthenelse{\value{listcount}=20\AND\value{listcount}<\value{listtotal}}{%
   % If the author currently being processed is the 20th author and there are still more authors after this one
   　　 \ldots% print '…'
@@ -140,14 +141,14 @@ For example, the bibliography format of the Japanese Psychological Association a
     }%
   }%
 }
-{% endraw %}
+```
 
 The format definition by `\Declare***Format{}` can also be applied only to a specific entry type by using `\Declare***Format[entry type]{}`. So, for example, the following definition could be used to display author names in order of first name and last name for `article` entries, and in order of last name and first name for `book` entries.
 
-{% raw %}
+```
 \DeclareNameFormat[article]{author}{\namepartfamily\space\namepartgiven}%
 \DeclareNameFormat[book]{author}{\namepartgiven\space\namepartfamily}%
-{% endraw %}
+```
 
 ### Delimiters
 
@@ -155,7 +156,7 @@ If you only want to use " " instead of "," as the delimiter between the author's
 
 However, simply modifying `\revsdnamepunct` will cause all references to display a space between the author's last name and first name, regardless of language. If you want to change the delimiters according to language, such as "Familyname, Givenname" for English references and "Familyname Givenname" for Japanese references, set the `AtEveryBibitem`, which is executed every time a bibliography entry is read, as follows:
 
-{% raw %}
+```
 \AtEveryBibitem{%
   \ifthenelse{\equal{\thefirstlistitem{language}}{japanese}}{
     % If the language of the reference is Japanese, the delimiter is a space
@@ -165,13 +166,13 @@ However, simply modifying `\revsdnamepunct` will cause all references to display
     \renewcommand*{\revsdnamepunct}{\addcomma\space}%
   }%
 }
-{% endraw %}
+```
 
 In BibLaTeX, several delimiters are predefined under the names `***punct` and `***delim`. Please refer to the BibLaTeX manual, the `biblatex.def` file, or the `.bib` file of the style you are using as a base to find out what delimiters are defined and how. These delimiters can also be specified only in specific contexts by:
 
-{% raw %}
+```
 \DeclareDelimFormat[bib,biblist]{\revsdnamepunct}{\addcomma\space}%
-{% endraw %}
+```
 
 In this case, the specification for this delimiter applies only to the context of the bibliography list and not to other contexts, e.g., citations in the text.
 
@@ -180,7 +181,7 @@ In this case, the specification for this delimiter applies only to the context o
 
 The settings for `.cbx` files are the same as for `.bbx` files. In `.cbx` files, macros are defined for each citation command, such as `\textcite` and `\parencite`. The desired results can be obtained by changing the settings of these macros. These macros are executed for each literature entry to be cited, so for example, by saving the author hash of the last entry, multiple references by the same author, such as "Yamada (2001)" and "Yamada (2005)", can be combined and printed as "Yamada (2001, 2005)".
 
-{% raw %}
+```
 \renewbibmacro{textcite}{%
   \iffieldequals{namehash}{\cbx@lasthash}{
     % If the author of this entry is the same as the last entry, do not repeat the author's name
@@ -195,6 +196,6 @@ The settings for `.cbx` files are the same as for `.bbx` files. In `.cbx` files,
     \setunit{\multicitedelim}%               print citation delimiter
   }%
 }
-{% endraw %}
+```
 
 As already mentioned, `.cbx` files can be loaded and overwritten with existing style files using `RequireCitationStyle{}`, so it is best to load the style file closest to the one you want to make modifications only where necessary.

@@ -1,11 +1,11 @@
 ---
+render_with_liquid: false
 layout: post
 title:  "Customizing BibLaTeX's style files"
 date:   2022-12-29 20:58:00 +0900
 tags: 
 - biblatex
 - latex
-render_with_liquid: false
 ---
 
 Papers written in Japanese often have different citation formats for Japanese and English references, which has become a bottleneck in using BibTeX and BibLaTeX.

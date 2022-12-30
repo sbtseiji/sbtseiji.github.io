@@ -32,7 +32,7 @@ github_username:  sbtseiji
 remote_theme: pages-themes/modernist@v0.2.0
 plugins:
 - jekyll-feed
-# - jekyll-remote-theme
+- jekyll-remote-theme
 
 include: [".well-known"]
 # Exclude from processing.
